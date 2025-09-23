@@ -1,0 +1,45 @@
+@use "../_variables" as *;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-bg;
+  padding: 0 2rem;
+  height: 70px;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 40px;
+      width: auto;
+    }
+  }
+
+  &__nav {
+    ul {
+      display: flex;
+      gap: 3rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        color: $color-text;
+        font-weight: 500;
+        cursor: pointer;
+        transition: transform 0.3s, background 0.3s, color 0.3s;
+        border-radius: 5px;
+        padding: 5px;
+
+        &:hover {
+          background: $color-text;
+          color: $color-primary;
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+}

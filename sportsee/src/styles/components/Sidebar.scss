@@ -1,0 +1,67 @@
+@use "../_variables" as *;
+
+.sidebar {
+  position: fixed;
+  top: $header-height;
+  left: 0;
+  bottom: 0;
+  width: $sidebar-width;
+  background: $color-bg;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 0;
+  box-shadow: $shadow;
+
+  &__icons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__btn {
+    width: 56px;
+    height: 56px;
+    border: none;
+    border-radius: 10px;
+    background: #fff;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+
+    img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+      display: block;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    }
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  &__copyright {
+    color: $color-text;
+    opacity: 0.8;
+    font-size: 0.75rem;
+    letter-spacing: 0.3px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    user-select: none;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.main-with-sidebar {
+  margin-left: $sidebar-width;
+}
