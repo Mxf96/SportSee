@@ -1,77 +1,123 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/pages/Dashboard.scss";
 import StatCard from "../components/StatCard";
 
+import ActivityChart from "../components/charts/ActivityChart";
+import AverageSessionsChart from "../components/charts/AverageSessionsChart";
+import PerformanceRadar from "../components/charts/PerformanceRadar";
+import ScoreGauge from "../components/charts/ScoreGauge";
+
+import {
+  getUserMain,
+  getUserActivity,
+  getUserAverageSessions,
+  getUserPerformance,
+} from "../services/userService";
+
 export default function Dashboard() {
+  const userId = 12;
+  const [user, setUser] = useState(null);
+  const [activity, setActivity] = useState([]);
+  const [avgSessions, setAvgSessions] = useState([]);
+  const [performance, setPerformance] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const [u, act, avg, perf] = await Promise.all([
+          getUserMain(userId),
+          getUserActivity(userId),
+          getUserAverageSessions(userId),
+          getUserPerformance(userId),
+        ]);
+        setUser(u);
+        setActivity(act);
+        setAvgSessions(avg);
+        setPerformance(perf);
+      } catch (e) {
+        console.error(e);
+        setErr("Impossible de charger les données.");
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [userId]);
+
+  if (loading)
+    return (
+      <main className="dashboard main-with-sidebar">
+        <p>Chargement…</p>
+      </main>
+    );
+  if (err || !user)
+    return (
+      <main className="dashboard main-with-sidebar">
+        <p>{err || "Aucune donnée."}</p>
+      </main>
+    );
+
   return (
     <main className="dashboard main-with-sidebar">
-      {/* En-tête texte */}
       <header className="dashboard__intro">
         <h1>
-          Bonjour <span className="accent">Thomas</span>
+          Bonjour <span className="accent">{user.firstName}</span>
         </h1>
-        <p>
-          Félicitation ! Vous avez explosé vos objectifs hier <span>👏</span>
-        </p>
+        <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
       </header>
 
-      {/* Grille principale */}
       <section className="dashboard__grid">
-        {/* Colonne gauche */}
         <div className="dashboard__left">
           <div className="card card--xl">
             <div className="card__title">Activité quotidienne</div>
-            {/* Placeholder chart */}
-            <div className="placeholder placeholder--bars" />
+            <ActivityChart data={activity} />
           </div>
 
           <div className="dashboard__mini">
-            <div className="card card--mini">
-              <div className="card__title">Durée moyenne des sessions</div>
-              <div className="placeholder placeholder--line" />
+            <div
+              className="card card--mini"
+              style={{ background: "#E60000", color: "#fff" }}
+            >
+              <div className="card__title" style={{ color: "#fff" }}>
+                Durée moyenne des sessions
+              </div>
+              <AverageSessionsChart data={avgSessions} />
             </div>
+
             <div className="card card--mini card--dark">
               <div className="card__title">Intensité</div>
-              <div className="placeholder placeholder--radar" />
+              <PerformanceRadar data={performance} />
             </div>
+
             <div className="card card--mini">
               <div className="card__title">Score</div>
-              <div className="placeholder placeholder--gauge">
-                <div className="gauge__ring" />
-                <div className="gauge__center">
-                  <strong>12%</strong>
-                  <span>
-                    de votre
-                    <br />
-                    objectif
-                  </span>
-                </div>
-              </div>
+              <ScoreGauge score={user.score} />
             </div>
           </div>
         </div>
 
-        {/* Colonne droite : cartes de stats */}
         <aside className="dashboard__right">
           <StatCard
             tone="calories"
             title="Calories"
-            value="1,930kCal"
-            iconLabel="flame"
+            value={`${user.keyData.calorieCount.toLocaleString()}kCal`}
           />
           <StatCard
             tone="proteins"
             title="Proteines"
-            value="155g"
-            iconLabel="drumstick"
+            value={`${user.keyData.proteinCount}g`}
           />
           <StatCard
             tone="carbs"
             title="Glucides"
-            value="290g"
-            iconLabel="apple"
+            value={`${user.keyData.carbohydrateCount}g`}
           />
-          <StatCard tone="fat" title="Lipides" value="50g" iconLabel="burger" />
+          <StatCard
+            tone="fat"
+            title="Lipides"
+            value={`${user.keyData.lipidCount}g`}
+          />
         </aside>
       </section>
     </main>
