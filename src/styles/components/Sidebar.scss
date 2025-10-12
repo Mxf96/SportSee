@@ -64,4 +64,5 @@
 
 .main-with-sidebar {
   margin-left: $sidebar-width;
+  padding-top: calc($header-height + 1rem);
 }

@@ -1,0 +1,56 @@
+@use "../_variables" as *;
+
+.statcard {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: 1rem 1.25rem;
+  box-shadow: $shadow;
+  border: 1px solid $color-border;
+
+  &__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+
+    img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      display: block;
+    }
+
+    &--calories {
+      background: #ffe9ea;
+    } // rouge très pâle
+    &--proteins {
+      background: #eaf3ff;
+    } // bleu très pâle
+    &--carbs {
+      background: #fff6dd;
+    } // jaune/orange très pâle
+    &--fat {
+      background: #ffeaf2;
+    } // rose très pâle
+  }
+
+  &__content {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  &__value {
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  &__title {
+    color: #8a8f96;
+    font-size: 0.95rem;
+  }
+}
