@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/pages/Dashboard.scss";
 import StatCard from "../components/StatCard";
-
 import ActivityChart from "../components/charts/ActivityChart";
 import AverageSessionsChart from "../components/charts/AverageSessionsChart";
 import PerformanceRadar from "../components/charts/PerformanceRadar";
