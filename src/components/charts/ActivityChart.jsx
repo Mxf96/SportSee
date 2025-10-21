@@ -23,12 +23,12 @@ export default function ActivityChart({ data }) {
           verticalAlign="top"
           align="right"
           iconType="circle"
-          wrapperStyle={{ top: 8, right: 16 }} // <-- espace par rapport aux bords
+          wrapperStyle={{ top: 8, right: 16 }}
         />
         <XAxis
           dataKey="day"
           tickLine={false}
-          tickMargin={12} // <-- espace entre ticks et bas du chart
+          tickMargin={12}
         />
         <YAxis
           yAxisId="kg"
