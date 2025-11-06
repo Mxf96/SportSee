@@ -5,8 +5,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function ScoreGauge({ score }) {
-  const value = Math.round((score ?? 0) * 100);
+export default function ScoreGauge({ score, todayScore }) {
+  // Prend todayScore si dispo, sinon score, sinon 0
+  const finalScore = todayScore ?? score ?? 0;
+  const value = Math.round(finalScore * 100);
 
   const data = [{ name: "score", full: 100, value }];
 

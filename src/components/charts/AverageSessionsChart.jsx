@@ -1,25 +1,71 @@
-import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from "recharts";
-
-const dayMap = ["", "L", "M", "M", "J", "V", "S", "D"];
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Rectangle,
+} from "recharts";
 
 export default function AverageSessionsChart({ data }) {
-  const mapped = data.map((d) => ({ ...d, label: dayMap[d.day] }));
+  const days = ["L", "M", "M", "J", "V", "S", "D"];
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div
+          style={{
+            background: "white",
+            color: "black",
+            padding: "4px 8px",
+            borderRadius: "5px",
+            fontSize: "12px",
+            transform: "translateY(-50%)",
+          }}
+        >
+          {`${payload[0].value} min`}
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const CustomCursor = (props) => {
+    const { points, height } = props;
+    const x = points?.[0]?.x ?? 0;
+    const chartWidth = props.width ?? props?.viewBox?.width ?? 300; // fallback
+    const cursorWidth = x >= chartWidth - 1 ? 15 : chartWidth - x;
+
+    return (
+      <Rectangle
+        fill="rgba(0, 0, 0, 0.15)"
+        x={x}
+        y={0}
+        width={cursorWidth}
+        height={height}
+      />
+    );
+  };
+
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height={250}>
       <LineChart
-        data={mapped}
-        margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
+        data={data}
+        margin={{ top: 5, right: 5, left: 5, bottom: 70 }}
       >
         <XAxis
-          dataKey="label"
+          dataKey="day"
+          tickFormatter={(dayIndex) => days[dayIndex - 1]}
+          tick={{ fill: "white", opacity: 0.6 }}
           axisLine={false}
           tickLine={false}
-          stroke="#fff"
         />
+        <YAxis hide domain={["dataMin - 10", "dataMax + 10"]} />
         <Tooltip
-          labelFormatter={() => ""}
-          formatter={(v) => [`${v} min`, "Temps"]}
-          contentStyle={{ background: "#fff", border: "none", borderRadius: 6 }}
+          content={<CustomTooltip />}
+          cursor={<CustomCursor />}
+          wrapperStyle={{ outline: "none" }} // évite le carré noir
         />
         <Line
           type="monotone"
@@ -27,6 +73,12 @@ export default function AverageSessionsChart({ data }) {
           stroke="#fff"
           strokeWidth={2}
           dot={false}
+          activeDot={{
+            r: 6,
+            stroke: "#fff",
+            strokeWidth: 2,
+            fill: "#fff",
+          }}
         />
       </LineChart>
     </ResponsiveContainer>

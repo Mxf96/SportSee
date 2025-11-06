@@ -7,18 +7,64 @@ import {
 } from "recharts";
 
 export default function PerformanceRadar({ data }) {
-  // data: [{ kind: 'Cardio', value: 120 }, ...]
+  if (!data) {
+    console.warn("⚠️ Aucune donnée reçue :", data);
+    return <p style={{ color: "white" }}>Aucune donnée à afficher.</p>;
+  }
+
+  // Si c’est directement un tableau (cas mock)
+  const rawData = Array.isArray(data) ? data : data.data || [];
+  const kindSource = data.kind || {}; // utilisé si fourni par l’API
+
+  // Traductions françaises
+  const translations = {
+    cardio: "Cardio",
+    energy: "Énergie",
+    endurance: "Endurance",
+    strength: "Force",
+    speed: "Vitesse",
+    intensity: "Intensité",
+  };
+
+  const correctOrder = [
+    "speed",
+    "intensity",
+    "cardio",
+    "energy",
+    "endurance",
+    "strength",
+  ];
+
+  // Formatage universel (API + mock)
+  let formattedData = rawData.map((item) => {
+    const key =
+      typeof item.kind === "string"
+        ? item.kind // "cardio"
+        : kindSource[item.kind]?.toLowerCase(); // 1 → "cardio"
+    const label = translations[key] || "Inconnu";
+    return { value: item.value, kind: label, key };
+  });
+
+  // ✅ Réordonne les données selon l’ordre voulu
+  formattedData.sort(
+    (a, b) => correctOrder.indexOf(a.key) - correctOrder.indexOf(b.key)
+  );
+
+  console.log("📊 Données formatées Radar :", formattedData);
+
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <RadarChart data={data} outerRadius="70%">
-        <PolarGrid />
-        <PolarAngleAxis dataKey="kind" stroke="#fff" tick={{ fontSize: 12 }} />
-        <Radar
-          dataKey="value"
-          stroke="#FF0101"
-          fill="#FF0101"
-          fillOpacity={0.6}
-        />
+      <RadarChart
+        cx="50%"
+        cy="50%"
+        outerRadius="70%"
+        data={formattedData}
+        startAngle={210}
+        endAngle={-150}
+      >
+        <PolarGrid radialLines={false} stroke="#fff" />
+        <PolarAngleAxis dataKey="kind" tick={{ fill: "#fff", fontSize: 12 }} />
+        <Radar dataKey="value" fill="#FF0101" fillOpacity={0.6} />
       </RadarChart>
     </ResponsiveContainer>
   );
