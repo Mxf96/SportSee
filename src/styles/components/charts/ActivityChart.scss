@@ -1,0 +1,14 @@
+.activity-chart {
+  position: relative;
+  width: 100%;
+  height: 250px;
+
+  &__tooltip {
+    background-color: #e60000;
+    color: white;
+    padding: 10px 8px;
+    font-size: 10px;
+    line-height: 1.5;
+    text-align: center;
+  }
+}

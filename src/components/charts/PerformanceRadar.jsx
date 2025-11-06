@@ -1,3 +1,4 @@
+import "../../styles/components/charts/PerformanceRadar.scss";
 import {
   Radar,
   RadarChart,
@@ -9,7 +10,9 @@ import {
 export default function PerformanceRadar({ data }) {
   if (!data) {
     console.warn("⚠️ Aucune donnée reçue :", data);
-    return <p style={{ color: "white" }}>Aucune donnée à afficher.</p>;
+    return (
+      <p className="performance-radar__message">Aucune donnée à afficher.</p>
+    );
   }
 
   // Si c’est directement un tableau (cas mock)
@@ -39,8 +42,8 @@ export default function PerformanceRadar({ data }) {
   let formattedData = rawData.map((item) => {
     const key =
       typeof item.kind === "string"
-        ? item.kind // "cardio"
-        : kindSource[item.kind]?.toLowerCase(); // 1 → "cardio"
+        ? item.kind
+        : kindSource[item.kind]?.toLowerCase();
     const label = translations[key] || "Inconnu";
     return { value: item.value, kind: label, key };
   });
@@ -53,19 +56,21 @@ export default function PerformanceRadar({ data }) {
   console.log("📊 Données formatées Radar :", formattedData);
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <RadarChart
-        cx="50%"
-        cy="50%"
-        outerRadius="70%"
-        data={formattedData}
-        startAngle={210}
-        endAngle={-150}
-      >
-        <PolarGrid radialLines={false} stroke="#fff" />
-        <PolarAngleAxis dataKey="kind" tick={{ fill: "#fff", fontSize: 12 }} />
-        <Radar dataKey="value" fill="#FF0101" fillOpacity={0.6} />
-      </RadarChart>
-    </ResponsiveContainer>
+    <div className="performance-radar">
+      <ResponsiveContainer width="100%" height="100%">
+        <RadarChart
+          cx="50%"
+          cy="50%"
+          outerRadius="70%"
+          data={formattedData}
+          startAngle={210}
+          endAngle={-150}
+        >
+          <PolarGrid radialLines={false} />
+          <PolarAngleAxis dataKey="kind" />
+          <Radar dataKey="value" />
+        </RadarChart>
+      </ResponsiveContainer>
+    </div>
   );
 }

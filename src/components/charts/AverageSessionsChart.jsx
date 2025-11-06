@@ -1,3 +1,4 @@
+import "../../styles/components/charts/AverageSessionsChart.scss";
 import {
   LineChart,
   Line,
@@ -14,16 +15,7 @@ export default function AverageSessionsChart({ data }) {
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div
-          style={{
-            background: "white",
-            color: "black",
-            padding: "4px 8px",
-            borderRadius: "5px",
-            fontSize: "12px",
-            transform: "translateY(-50%)",
-          }}
-        >
+        <div className="average-sessions__tooltip">
           {`${payload[0].value} min`}
         </div>
       );
@@ -39,7 +31,7 @@ export default function AverageSessionsChart({ data }) {
 
     return (
       <Rectangle
-        fill="rgba(0, 0, 0, 0.15)"
+        className="average-sessions__cursor"
         x={x}
         y={0}
         width={cursorWidth}
@@ -49,38 +41,42 @@ export default function AverageSessionsChart({ data }) {
   };
 
   return (
-    <ResponsiveContainer width="100%" height={250}>
-      <LineChart
-        data={data}
-        margin={{ top: 5, right: 5, left: 5, bottom: 70 }}
-      >
-        <XAxis
-          dataKey="day"
-          tickFormatter={(dayIndex) => days[dayIndex - 1]}
-          tick={{ fill: "white", opacity: 0.6 }}
-          axisLine={false}
-          tickLine={false}
-        />
-        <YAxis hide domain={["dataMin - 10", "dataMax + 10"]} />
-        <Tooltip
-          content={<CustomTooltip />}
-          cursor={<CustomCursor />}
-          wrapperStyle={{ outline: "none" }} // évite le carré noir
-        />
-        <Line
-          type="monotone"
-          dataKey="sessionLength"
-          stroke="#fff"
-          strokeWidth={2}
-          dot={false}
-          activeDot={{
-            r: 6,
-            stroke: "#fff",
-            strokeWidth: 2,
-            fill: "#fff",
-          }}
-        />
-      </LineChart>
-    </ResponsiveContainer>
+    <div className="average-sessions">
+      <h3 className="average-sessions__title">Durée moyenne des sessions</h3>
+
+      <ResponsiveContainer width="100%" height={250}>
+        <LineChart
+          data={data}
+          margin={{ top: 10, right: 5, left: 5, bottom: 70 }}
+        >
+          <XAxis
+            dataKey="day"
+            tickFormatter={(dayIndex) => days[dayIndex - 1]}
+            tick={{ fill: "white", opacity: 0.6 }}
+            axisLine={false}
+            tickLine={false}
+          />
+          <YAxis hide domain={["dataMin - 10", "dataMax + 10"]} />
+          <Tooltip
+            content={<CustomTooltip />}
+            cursor={<CustomCursor />}
+            wrapperStyle={{ outline: "none" }}
+          />
+          <Line
+            type="monotone"
+            dataKey="sessionLength"
+            stroke="#fff"
+            strokeWidth={2}
+            dot={false}
+            activeDot={{
+              r: 6,
+              stroke: "#fff",
+              strokeWidth: 2,
+              fill: "#fff",
+            }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
 }

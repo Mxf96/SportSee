@@ -1,3 +1,4 @@
+import "../../styles/components/charts/ScoreGauge.scss";
 import {
   RadialBarChart,
   RadialBar,
@@ -6,7 +7,7 @@ import {
 } from "recharts";
 
 export default function ScoreGauge({ score, todayScore }) {
-  // Prend todayScore si dispo, sinon score, sinon 0
+  // ✅ Utilise todayScore si dispo, sinon score, sinon 0
   const finalScore = todayScore ?? score ?? 0;
   const value = Math.round(finalScore * 100);
 
