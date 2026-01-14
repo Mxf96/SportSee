@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import "../../styles/components/charts/AverageSessionsChart.scss";
 import {
   LineChart,
@@ -6,48 +7,43 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  Rectangle,
 } from "recharts";
 
 export default function AverageSessionsChart({ data }) {
   const days = ["L", "M", "M", "J", "V", "S", "D"];
+  const containerRef = useRef(null);
+  const [overlayWidth, setOverlayWidth] = useState(0);
 
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
+  const CustomTooltip = ({ active, payload, coordinate }) => {
+    if (active && payload && payload.length && coordinate) {
+      const containerWidth = containerRef.current?.clientWidth ?? 0;
+      const w = Math.max(containerWidth - coordinate.x, 1);
+      setOverlayWidth(w);
+
       return (
         <div className="average-sessions__tooltip">
           {`${payload[0].value} min`}
         </div>
       );
     }
+
+    if (overlayWidth !== 0) setOverlayWidth(0);
     return null;
   };
 
-  const CustomCursor = (props) => {
-    const { points, height } = props;
-    const x = points?.[0]?.x ?? 0;
-    const chartWidth = props.width ?? props?.viewBox?.width ?? 300; // fallback
-    const cursorWidth = x >= chartWidth - 1 ? 15 : chartWidth - x;
-
-    return (
-      <Rectangle
-        className="average-sessions__cursor"
-        x={x}
-        y={0}
-        width={cursorWidth}
-        height={height}
-      />
-    );
-  };
-
   return (
-    <div className="average-sessions">
+    <div className="average-sessions" ref={containerRef}>
       <h3 className="average-sessions__title">Durée moyenne des sessions</h3>
+
+      <div
+        className="average-sessions__overlay"
+        style={{ width: `${overlayWidth}px` }}
+      />
 
       <ResponsiveContainer width="100%" height={250}>
         <LineChart
           data={data}
-          margin={{ top: 10, right: 5, left: 5, bottom: 70 }}
+          margin={{ top: 60, right: 10, left: 10, bottom: 10 }}
         >
           <XAxis
             dataKey="day"
@@ -59,7 +55,7 @@ export default function AverageSessionsChart({ data }) {
           <YAxis hide domain={["dataMin - 10", "dataMax + 10"]} />
           <Tooltip
             content={<CustomTooltip />}
-            cursor={<CustomCursor />}
+            cursor={false}
             wrapperStyle={{ outline: "none" }}
           />
           <Line

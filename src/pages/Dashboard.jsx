@@ -74,20 +74,9 @@ export default function Dashboard() {
           </div>
 
           <div className="dashboard__mini">
-            <div
-              className="card card--mini"
-              style={{ background: "#E60000", color: "#fff" }}
-            >
-              <div className="card__title" style={{ color: "#fff" }}>
-                Durée moyenne des sessions
-              </div>
-              <AverageSessionsChart data={avgSessions} />
-            </div>
+            <AverageSessionsChart data={avgSessions} />
 
-            <div className="card card--mini card--dark">
-              <div className="card__title">Intensité</div>
-              <PerformanceRadar data={performance} />
-            </div>
+            <PerformanceRadar data={performance} />
 
             <div className="card card--mini">
               <div className="card__title">Score</div>

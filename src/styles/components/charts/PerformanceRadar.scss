@@ -1,9 +1,12 @@
+@use "../../_variables" as *;
+
 .performance-radar {
   width: 100%;
-  height: 100%;
-  background-color: #282d30;
-  border-radius: 5px;
+  height: 265px;
+  background: #282d30;
+  border-radius: $radius-md;
   position: relative;
+  box-shadow: $shadow;
 
   &__message {
     color: white;

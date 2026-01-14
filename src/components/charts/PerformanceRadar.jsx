@@ -30,12 +30,12 @@ export default function PerformanceRadar({ data }) {
   };
 
   const correctOrder = [
-    "speed",
-    "intensity",
-    "cardio",
     "energy",
-    "endurance",
+    "cardio",
+    "intensity",
+    "speed",
     "strength",
+    "endurance",
   ];
 
   // Formatage universel (API + mock)
