@@ -7,7 +7,6 @@ import {
 } from "recharts";
 
 export default function ScoreGauge({ score, todayScore }) {
-  // ✅ Utilise todayScore si dispo, sinon score, sinon 0
   const finalScore = todayScore ?? score ?? 0;
   const value = Math.round(finalScore * 100);
 
@@ -15,22 +14,19 @@ export default function ScoreGauge({ score, todayScore }) {
 
   return (
     <div className="score">
+      <h3 className="score__title">Score</h3>
+      
       <ResponsiveContainer className="score__chart" width="100%" height="100%">
         <RadialBarChart
           data={data}
           startAngle={90}
           endAngle={450}
-          innerRadius="70%"
-          outerRadius="80%"
+          innerRadius="60%"
+          outerRadius="50%"
           barSize={12}
         >
           <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
-          <RadialBar
-            dataKey="full"
-            fill="#EDEDED"
-            cornerRadius={10}
-            isAnimationActive={false}
-          />
+
           <RadialBar dataKey="value" fill="#E60000" cornerRadius={10} />
         </RadialBarChart>
       </ResponsiveContainer>

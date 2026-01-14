@@ -78,10 +78,8 @@ export default function Dashboard() {
 
             <PerformanceRadar data={performance} />
 
-            <div className="card card--mini">
-              <div className="card__title">Score</div>
+
               <ScoreGauge score={user.score} todayScore={user.todayScore} />
-            </div>
           </div>
         </div>
 
