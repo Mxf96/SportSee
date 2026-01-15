@@ -32,33 +32,52 @@
     display: grid;
     place-items: center;
     cursor: pointer;
-    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    transition: background 0.15s ease, transform 0.5s ease;
 
     img {
       width: 26px;
       height: 26px;
       object-fit: contain;
       display: block;
+      transition: filter 0.15s ease;
     }
 
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+      background: #ff0101;
+      transform: scale(1.2);
     }
+
+    &:hover img {
+      filter: brightness(0) invert(1);
+    }
+
     &:active {
       transform: translateY(0);
     }
   }
 
   &__copyright {
-    color: $color-text;
-    opacity: 0.8;
-    font-size: 0.75rem;
-    letter-spacing: 0.3px;
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    user-select: none;
+    height: 160px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 0.5rem;
+    user-select: none;
+    flex: 0 0 auto;
+
+    span {
+      color: $color-text;
+      opacity: 0.8;
+      font-size: 0.75rem;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      display: inline-block;
+      transform: rotate(-90deg);
+      transform-origin: center;
+      backface-visibility: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
   }
 }
 
