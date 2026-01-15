@@ -5,11 +5,10 @@
   grid-template-columns: 72px 1fr;
   align-items: center;
   gap: 1rem;
-  background: #fff;
-  border-radius: $radius-lg;
-  padding: 1rem 1.25rem;
-  box-shadow: $shadow;
-  border: 1px solid $color-border;
+  background: #fbfbfb;
+  border-radius: $radius-md;
+  padding: 2.5rem 1.25rem;
+  margin-bottom: 20px;
 
   &__icon {
     width: 56px;

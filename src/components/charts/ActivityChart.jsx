@@ -38,7 +38,7 @@ export default function ActivityChart({ data }) {
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis
             dataKey="day"
-            tickFormatter={(value, index) => index + 1}
+            tickFormatter={(index) => index + 1}
             tickLine={false}
             axisLine={false}
             tick={{ fill: "#9B9EAC" }}

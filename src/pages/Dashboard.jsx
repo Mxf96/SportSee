@@ -61,7 +61,7 @@ export default function Dashboard() {
     <main className="dashboard main-with-sidebar">
       <header className="dashboard__intro">
         <h1>
-          Bonjour <span className="accent">{user.firstName}</span>
+          Bonjour <span className="accent">{user?.userInfos?.firstName}</span>
         </h1>
         <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
       </header>
@@ -69,7 +69,19 @@ export default function Dashboard() {
       <section className="dashboard__grid">
         <div className="dashboard__left">
           <div className="card card--xl">
-            <div className="card__title">Activité quotidienne</div>
+            <div className="card__header">
+              <h2 className="card__title">Activité quotidienne</h2>
+
+              <div className="activity-legend">
+                <span className="activity-legend__item activity-legend__item--kg">
+                  Poids (kg)
+                </span>
+                <span className="activity-legend__item activity-legend__item--cal">
+                  Calories brûlées (kCal)
+                </span>
+              </div>
+            </div>
+
             <ActivityChart data={activity} />
           </div>
 
@@ -78,8 +90,7 @@ export default function Dashboard() {
 
             <PerformanceRadar data={performance} />
 
-
-              <ScoreGauge score={user.score} todayScore={user.todayScore} />
+            <ScoreGauge score={user.score} todayScore={user.todayScore} />
           </div>
         </div>
 

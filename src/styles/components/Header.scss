@@ -26,7 +26,7 @@
   &__nav {
     ul {
       display: flex;
-      gap: 3rem;
+      gap: 3rem 8rem;
       list-style: none;
       margin: 0;
       padding: 0;
@@ -38,6 +38,8 @@
         transition: transform 0.3s, background 0.3s, color 0.3s;
         border-radius: 5px;
         padding: 5px;
+        margin-right: 150px;
+        font-size: 25px;
 
         &:hover {
           background: $color-text;

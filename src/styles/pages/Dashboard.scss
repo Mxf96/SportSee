@@ -1,7 +1,8 @@
 @use "../_variables" as *;
 
 .dashboard {
-  padding: 2.5rem 2.5rem 3rem;
+  margin-top: 20px;
+  padding: 8rem;
   color: #000;
 
   &__intro {
@@ -17,7 +18,7 @@
     }
     p {
       color: $color-subtle;
-      margin: 0;
+      margin: 0 0 50px 0;
     }
   }
 
@@ -33,11 +34,9 @@
   }
 
   .card {
-    background: #fff;
+    background: #fbfbfb;
     border-radius: $radius-md;
-    box-shadow: $shadow;
     padding: 1rem 1rem 1.2rem;
-    border: 1px solid $color-border;
 
     &__title {
       color: #666;
@@ -45,8 +44,19 @@
       margin: 0.25rem 0.5rem 1rem;
     }
 
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0.25rem 0.5rem 1rem;
+    }
+
+    &__header &__title {
+      margin: 0;
+    }
+
     &--xl {
-      padding: 1.2rem 1.2rem 1.4rem;
+      padding: 0.2rem 1.2rem 0.2rem;
     }
     &--mini {
       height: 230px;
@@ -57,6 +67,37 @@
       background: #1f2225;
       color: #dfe3e6;
       border-color: transparent;
+    }
+  }
+
+  .activity-legend {
+    display: flex;
+    gap: 28px;
+    font-size: 14px;
+    color: #74798c;
+
+    &__item {
+      position: relative;
+      padding-left: 18px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      &--kg::before {
+        background: #282d30;
+      }
+
+      &--cal::before {
+        background: #e60000;
+      }
     }
   }
 
@@ -145,6 +186,12 @@
     }
     &__right {
       grid-template-columns: 1fr;
+    }
+    .activity-legend {
+      gap: 16px;
+      font-size: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
   }
 }

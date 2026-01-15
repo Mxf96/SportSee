@@ -1,7 +1,5 @@
 import React from "react";
 import "../styles/components/StatCard.scss";
-
-// IMPORTS des icônes (depuis src/)
 import energy from "../assets/img/icons/energy.png";
 import chicken from "../assets/img/icons/chicken.png";
 import apple from "../assets/img/icons/apple.png";

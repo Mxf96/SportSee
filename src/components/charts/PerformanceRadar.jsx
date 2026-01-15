@@ -48,7 +48,7 @@ export default function PerformanceRadar({ data }) {
     return { value: item.value, kind: label, key };
   });
 
-  // ✅ Réordonne les données selon l’ordre voulu
+  // Réordonne les données selon l’ordre voulu
   formattedData.sort(
     (a, b) => correctOrder.indexOf(a.key) - correctOrder.indexOf(b.key)
   );
