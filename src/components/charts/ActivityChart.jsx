@@ -50,7 +50,7 @@ export default function ActivityChart({ data }) {
           <XAxis
             dataKey="day"
             // On utilise l'index pour afficher 1, 2, 3... au lieu de la date réelle
-            tickFormatter={(index) => index + 1}
+            tickFormatter={(_, index) => index + 1}
             tickLine={false}
             axisLine={false}
             tick={{ fill: "#9B9EAC" }}
