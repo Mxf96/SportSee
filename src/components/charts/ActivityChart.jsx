@@ -23,7 +23,7 @@ export default function ActivityChart({ data }) {
     if (active && payload && payload.length === 2) {
       const kg = payload[0].value;
       const kcal = payload[1].value;
-      
+
       return (
         <div className="activity-chart__tooltip">
           <p>{`${kg}kg`}</p>

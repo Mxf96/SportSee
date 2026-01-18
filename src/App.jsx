@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
-import StatCard from "./components/StatCard";
 
 function App() {
   return (
@@ -18,13 +17,6 @@ function App() {
       <Routes>
         {/* Route principale : tableau de bord utilisateur */}
         <Route path="/" element={<Dashboard />} />
-
-        {/* ⚠️ Cette route est inutile / incorrecte :
-            - même path que Dashboard ("/")
-            - StatCard est un composant, pas une page
-            - Elle ne sera jamais atteinte
-        */}
-        <Route path="/" element={<StatCard />} />
       </Routes>
     </BrowserRouter>
   );

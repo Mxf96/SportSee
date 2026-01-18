@@ -35,7 +35,7 @@ export default function Dashboard() {
      */
     (async () => {
       try {
-        const [u, act, avg, perf] = await Promise.all([
+        const [u, act, avg, perf] = await Promise.allSettled([
           getUserMain(userId),
           getUserActivity(userId),
           getUserAverageSessions(userId),
@@ -108,7 +108,7 @@ export default function Dashboard() {
             {/* Graphique barres : poids + calories */}
             <ActivityChart data={activity} />
           </div>
-
+{/* --------------------------------------------------------------------------------------------------------------------------- */}
           {/* 3 mini cards : sessions moyennes / radar / score */}
           <div className="dashboard__mini">
             <AverageSessionsChart data={avgSessions} />

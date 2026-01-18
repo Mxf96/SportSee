@@ -31,7 +31,7 @@ const Icon = ({ tone, title }) => (
     <img src={ICONS[tone]} alt="" />
   </span>
 );
-
+  
 export default function StatCard({ tone = "calories", title, value }) {
   return (
     <div className="statcard">
