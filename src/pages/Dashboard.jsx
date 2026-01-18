@@ -35,7 +35,7 @@ export default function Dashboard() {
      */
     (async () => {
       try {
-        const [u, act, avg, perf] = await Promise.allSettled([
+        const [u, act, avg, perf] = await Promise.all([ //  Promise.allSettled
           getUserMain(userId),
           getUserActivity(userId),
           getUserAverageSessions(userId),
